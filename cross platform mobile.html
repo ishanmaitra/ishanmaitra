@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Platform Mobile Development | Article</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+ 
+   <style>
+        /* ===== Base Styles ===== */
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #f8f8f8;
+            --accent: #10b981; /* Emerald green accent */
+            --accent-light: #34d399;
+            --text: #333;
+            --text-light: #777;
+            --overlay: rgba(10, 10, 10, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background-color: var(--secondary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+a i {
+  font-size: 24px;
+  color: #000; /* or white or any color you want */
+  margin: 10px;
+  transition: 0.3s;
+}
+
+a i:hover {
+  color: #1DA1F2; /* X brand blue */
+  transform: scale(1.2);
+}
+        /* ===== Background Animation ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: #34d399;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .circle-3 {
+            width: 250px;
+            height: 250px;
+            background: #10b981;
+            top: 50%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-50px) translateX(50px);
+            }
+        }
+
+        /* ===== Header ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 0;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.5);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(10, 10, 10, 0.9);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-light);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            font-size: 14px;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: var(--secondary);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            z-index: -1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #fff, var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .meta-info {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .meta-item i {
+            color: var(--accent-light);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+        }
+
+        .scroll-down::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.3);
+            margin-top: 15px;
+        }
+
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .mouse::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--accent-light);
+            border-radius: 2px;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                top: 5px;
+                opacity: 1;
+            }
+            100% {
+                top: 20px;
+                opacity: 0;
+            }
+        }
+
+        /* ===== Article Content ===== */
+        .article-content {
+            background: var(--secondary);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            padding: 80px;
+            margin-top: -100px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-text {
+            font-size: 20px;
+            color: var(--text);
+            margin-bottom: 60px;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 40px;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* ===== Framework Cards ===== */
+        .framework-card {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 100px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .framework-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .framework-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-number {
+            font-size: 120px;
+            font-weight: 700;
+            color: rgba(16, 185, 129, 0.1);
+            margin-bottom: -30px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .card-text {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .card-features {
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .feature-text {
+            color: var(--text);
+        }
+
+        .card-media {
+            flex: 1;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card-media::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.3));
+            z-index: 1;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .framework-card:hover .card-media::before {
+            opacity: 1;
+        }
+
+        .card-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .framework-card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* ===== Comparison Section ===== */
+        .comparison-section {
+            position: relative;
+            padding: 80px 0;
+            margin: 100px 0;
+            overflow: hidden;
+        }
+
+        .comparison-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.1));
+            z-index: -1;
+            border-radius: 20px;
+        }
+
+        .comparison-section::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0) 70%);
+            z-index: -2;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.2;
+            }
+        }
+
+        .comparison-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        .comparison-title span {
+            position: relative;
+            display: inline-block;
+        }
+
+        .comparison-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .comparison-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .comparison-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .comparison-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .comparison-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .comparison-card p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        /* ===== Interactive Demo ===== */
+        .interactive-demo {
+            background: var(--primary);
+            border-radius: 20px;
+            padding: 80px;
+            margin: 100px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-demo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .demo-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .demo-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .demo-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .device-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .device {
+            width: 200px;
+            height: 400px;
+            background: white;
+            border-radius: 30px;
+            padding: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .device::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(52, 211, 153, 0.3));
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .device:hover {
+            transform: translateY(-20px);
+        }
+
+        .device:hover::before {
+            opacity: 1;
+        }
+
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            background: #f5f5f5;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .device-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .device-label {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            color: white;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .device:hover .device-label {
+            opacity: 1;
+            bottom: -25px;
+        }
+
+        /* ===== Conclusion ===== */
+        .conclusion {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .conclusion::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 50px;
+            background: var(--accent);
+        }
+
+        .conclusion h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .conclusion p {
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--primary);
+            margin-top: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .signature::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--primary);
+            color: #aaa;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-light);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        /* ===== Responsive Styles ===== */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 60px;
+            }
+            
+            .framework-card {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 50px;
+            }
+            
+            .article-content {
+                padding: 60px;
+            }
+            
+            .framework-card {
+                flex-direction: column !important;
+                gap: 30px;
+            }
+            
+            .card-media {
+                width: 100%;
+            }
+            
+            .interactive-demo {
+                padding: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .article-content {
+                padding: 40px 30px;
+                margin-top: -50px;
+            }
+            
+            .intro-text {
+                padding-left: 20px;
+                font-size: 18px;
+            }
+            
+            .card-title {
+                font-size: 30px;
+            }
+            
+            .comparison-title {
+                font-size: 36px;
+            }
+            
+            .interactive-demo {
+                padding: 40px 30px;
+            }
+            
+            .demo-title {
+                font-size: 30px;
+            }
+            
+            .device-container {
+                gap: 20px;
+            }
+            
+            .device {
+                width: 150px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .card-number {
+                font-size: 80px;
+                margin-bottom: -20px;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .conclusion h2 {
+                font-size: 30px;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Creative<span>Portfolio</span></a>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <video autoplay muted loop class="hero-bg">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-cell-phone-1762-large.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="hero-content">
+                <h1 id="hero-title">Cross-Platform Mobile Development</h1>
+                <p id="hero-subtitle">Building seamless experiences across iOS and Android with modern frameworks that deliver native performance.</p>
+                <div class="meta-info" id="meta-info">
+                    <div class="meta-item">
+                        <i class="far fa-user"></i> By Ishan Maitra
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-calendar"></i> March 22, 2024
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i> 12 min read
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-down" id="scroll-down">
+            <div class="mouse"></div>
+            Scroll to Explore
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <div class="container">
+        <article class="article-content">
+            <p class="intro-text">
+                In today's multi-device world, cross-platform development has evolved from a compromise to a first-class solution. This article explores the frameworks, techniques, and strategies that enable developers to build high-performance mobile apps that work beautifully across iOS and Android while maximizing code reuse.
+            </p>
+
+            <!-- Framework 1 -->
+            <div class="framework-card">
+                <div class="card-content">
+                    <div class="card-number">01</div>
+                    <h2 class="card-title">Flutter: Google's UI Toolkit</h2>
+                    <p class="card-text">
+                        Flutter has revolutionized cross-platform development with its widget-based approach, delivering native performance while maintaining a single codebase. Its layered architecture gives developers pixel-perfect control over every aspect of the UI.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Dart programming language with JIT and AOT compilation</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Hot reload for rapid development cycles</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Rich set of customizable widgets</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Popular</span>
+                    <img src="https://media.istockphoto.com/id/1254918599/photo/customer-review-satisfaction-feedback-survey-concept.jpg?s=612x612&w=0&k=20&c=9rUKFHLHyJ8gulXk7JNf-agCB9B6swBSaOOtQo9AEjw=" alt="Flutter Framework" class="card-img">
+                </div>
+            </div>
+
+            <!-- Framework 2 -->
+            <div class="framework-card">
+                <div class="card-content">
+                    <div class="card-number">02</div>
+                    <h2 class="card-title">React Native: Facebook's JavaScript Solution</h2>
+                    <p class="card-text">
+                        React Native brings the power of React to mobile development, allowing JavaScript developers to build truly native apps. Its bridge architecture enables seamless communication between JavaScript and native platform code.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Leverages existing React knowledge and ecosystem</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Large community and third-party library support</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Native modules for platform-specific functionality</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Mature</span>
+                    <img src="https://media.istockphoto.com/id/1332953647/photo/asian-chinese-mid-adult-female-astronaut-looking-at-earth-through-window-from-spaceship-at.jpg?s=612x612&w=0&k=20&c=4Yh6cjHO4mENUfjOHQBfBBt41tXP5x4nFqZiOyTkeJg=" alt="React Native Framework" class="card-img">
+                </div>
+            </div>
+
+            <!-- Framework 3 -->
+            <div class="framework-card">
+                <div class="card-content">
+                    <div class="card-number">03</div>
+                    <h2 class="card-title">Kotlin Multiplatform: JetBrains' Native Approach</h2>
+                    <p class="card-text">
+                        Kotlin Multiplatform takes a different approach by sharing business logic across platforms while using native UI layers. This provides the perfect balance between code reuse and platform-specific optimizations.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Share business logic between iOS and Android</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Native UI layers for each platform</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Gradual adoption with existing native apps</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Emerging</span>
+                    <img src="https://media.istockphoto.com/id/509736958/photo/technology-concept-presented-by-a-researcher-on-a-digital-screen.jpg?s=612x612&w=0&k=20&c=6cKD9IRnXacgmwZowUMOaFb7lVYi-4Jo1_o08YdN3QY=" alt="Kotlin Multiplatform" class="card-img">
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="comparison-section">
+                <h2 class="comparison-title"><span>Framework Comparison</span></h2>
+                <div class="comparison-tabs">
+                    <button class="tab-btn active" data-tab="performance">Performance</button>
+                    <button class="tab-btn" data-tab="development">Development</button>
+                    <button class="tab-btn" data-tab="ecosystem">Ecosystem</button>
+                </div>
+                <div class="tab-content active" id="performance">
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3>Flutter</h3>
+                            <p>Compiles to native ARM code with performance close to native apps. 60fps rendering is achievable with proper optimization.</p>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3>React Native</h3>
+                            <p>JavaScript bridge can cause performance bottlenecks in complex animations. Optimized components can achieve near-native performance.</p>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3>Kotlin Multiplatform</h3>
+                            <p>Native performance for shared logic with platform-specific UI layers. No performance penalty for business logic.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="development">
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Flutter</h3>
+                            <p>Hot reload speeds up development. Dart has a learning curve but is productive once mastered. Widget-based UI is highly customizable.</p>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>React Native</h3>
+                            <p>Fast refresh maintains app state. JavaScript/React knowledge transfers well. Native modules may require platform-specific code.</p>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Kotlin Multiplatform</h3>
+                            <p>Requires maintaining platform-specific UI layers. Excellent for teams with existing Kotlin/Android experience.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="ecosystem">
+                    <div class="comparison-grid">
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h3>Flutter</h3>
+                            <p>Growing ecosystem with pub.dev packages. Google-backed with strong corporate support. Excellent documentation.</p>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h3>React Native</h3>
+                            <p>Largest ecosystem with npm packages. Mature community support. Many third-party libraries available.</p>
+                        </div>
+                        <div class="comparison-card">
+                            <div class="comparison-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h3>Kotlin Multiplatform</h3>
+                            <p>Smaller but growing ecosystem. JetBrains and community contributions. Excellent interoperability with Java libraries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Framework 4 -->
+            <div class="framework-card">
+                <div class="card-content">
+                    <div class="card-number">04</div>
+                    <h2 class="card-title">SwiftUI & Jetpack Compose: Declarative Native</h2>
+                    <p class="card-text">
+                        While not cross-platform in the traditional sense, SwiftUI and Jetpack Compose represent the future of native mobile development with their declarative UI paradigms that share conceptual approaches with cross-platform frameworks.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Declarative UI syntax similar to React/Flutter</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Full access to platform-specific capabilities</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Future-proof skills as Apple/Google invest heavily</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Native</span>
+                    <img src="https://media.istockphoto.com/id/2156385097/photo/hispanic-latin-american-couple-software-engineer-developer-use-computer-work-on-program.jpg?s=612x612&w=0&k=20&c=QTIM5ONlJzDZAK8vH1M9_ZiFEcZT_Y613TM-QlnHtmA=" alt="SwiftUI & Jetpack Compose" class="card-img">
+                </div>
+            </div>
+
+            <!-- Interactive Demo -->
+            <div class="interactive-demo">
+                <div class="demo-content">
+                    <h2 class="demo-title">Cross-Platform in Action</h2>
+                    <p class="demo-text">
+                        See how a single codebase renders across different platforms with native performance. Hover over each device to see the platform-specific details.
+                    </p>
+                    <div class="device-container">
+                        <div class="device">
+                            <div class="device-screen">
+                                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aU9TJTIwYXBwfGVufDB8fDB8fHww" alt="iOS App">
+                            </div>
+                            <div class="device-label">iOS</div>
+                        </div>
+                        <div class="device">
+                            <div class="device-screen">
+                                <img src="https://images.unsplash.com/photo-1603566234499-85676f87022f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QW5kcm9pZCUyMEFwcHxlbnwwfHwwfHx8MA%3D%3D" alt="Android App">
+                            </div>
+                            <div class="device-label">Android</div>
+                        </div>
+                        <div class="device">
+                            <div class="device-screen">
+                                <img src="https://media.istockphoto.com/id/1220396235/photo/woman-ordering-food-by-mobile-app-delivery-at-home-at-social-distancing-time.jpg?s=612x612&w=0&k=20&c=FaE2xQVqq4TipDpnnJwUEwXdQLZUtLyl9dgTALctgNU=" alt="Web App">
+                            </div>
+                            <div class="device-label">Web</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="conclusion">
+                <h2>The Future of Mobile Development</h2>
+                <p>
+                    Cross-platform development has matured to the point where it's no longer about choosing between quality and efficiency. Modern frameworks allow developers to build apps that are indistinguishable from native implementations while sharing significant code across platforms. The choice between these solutions depends on your team's skills, project requirements, and long-term maintenance strategy.
+                </p>
+                <p>
+                    Which cross-platform approach resonates most with your development philosophy? I'd love to hear about your experiences and which frameworks you've found most effective for different use cases.
+                </p>
+                <div class="signature">Ishan Maitra</div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Creative Portfolio</h3>
+                    <p>Showcasing innovative mobile development and cross-platform solutions that push the boundaries of what's possible.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/16joNT6A33/"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/ishan-maitra-574123356?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://instagram.com/ishan.maitra"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/maitrawebtech"><i class="fab fa-github"></i></a>
+                <a href="https://x.com/maitra_ishan" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html">About</a></li>
+                        <li><a href="index.html">Portfolio</a></li>
+                        <li><a href="blog.html">Articles</a></li>
+                        <li><a href="index.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p>ishanmaitra20122gmail.com</p>
+                    <p>+91 <9674026774/p>
+                    <p>145 Baghajatin Road, Pujali, Daspara<br>Budge Budge, Kolkata - 700138, West Bengal</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ishan Maitra. All rights reserved. | Built with the latest cross-platform technologies.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hero animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate hero elements
+            setTimeout(() => {
+                document.getElementById('hero-title').style.opacity = '1';
+                document.getElementById('hero-title').style.transform = 'translateY(0)';
+            }, 300);
+            
+            setTimeout(() => {
+                document.getElementById('hero-subtitle').style.opacity = '1';
+                document.getElementById('hero-subtitle').style.transform = 'translateY(0)';
+            }, 600);
+            
+            setTimeout(() => {
+                document.getElementById('meta-info').style.opacity = '1';
+                document.getElementById('meta-info').style.transform = 'translateY(0)';
+            }, 900);
+            
+            setTimeout(() => {
+                document.getElementById('scroll-down').style.opacity = '1';
+            }, 1500);
+            
+            // Scroll to content
+            document.getElementById('scroll-down').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: document.querySelector('.article-content').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.framework-card, .comparison-card').forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Parallax effect for hero background
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.pageYOffset;
+                const hero = document.getElementById('hero');
+                hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+            });
+            
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and content
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Particle animation
+            const container = document.querySelector('.bg-animation');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 20 + 10;
+                const opacity = Math.random() * 0.3 + 0.1;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = opacity;
+                particle.style.backgroundColor = `rgba(16, 185, 129, ${opacity})`;
+                
+                container.appendChild(particle);
+            }
+        });
+
+        // Add keyframe animation for fadeIn
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
+</html>

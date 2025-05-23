@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential Tools for Modern Developers | Article</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  
+  <style>
+        /* ===== Base Styles ===== */
+        :root {
+            --primary: #0f172a;
+            --secondary: #f8fafc;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --text: #334155;
+            --text-light: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --glow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--secondary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+a i {
+  font-size: 24px;
+  color: #000; /* or white or any color you want */
+  margin: 10px;
+  transition: 0.3s;
+}
+
+a i:hover {
+  color: #1DA1F2; /* X brand blue */
+  transform: scale(1.2);
+}
+        /* ===== Background Animation ===== */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(rgba(15, 23, 42, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.15;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.1;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #818cf8;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: #4f46e5;
+            top: 50%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-50px) translateX(50px);
+            }
+        }
+
+        /* ===== Header ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 0;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-light);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            font-size: 14px;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: var(--secondary);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
+            z-index: -1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #fff, var(--accent-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .meta-info {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .meta-item i {
+            color: var(--accent-light);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+        }
+
+        .scroll-down::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.3);
+            margin-top: 15px;
+        }
+
+        .mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .mouse::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--accent-light);
+            border-radius: 2px;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                top: 5px;
+                opacity: 1;
+            }
+            100% {
+                top: 20px;
+                opacity: 0;
+            }
+        }
+
+        /* ===== Article Content ===== */
+        .article-content {
+            background: var(--secondary);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            padding: 80px;
+            margin-top: -100px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-text {
+            font-size: 20px;
+            color: var(--text);
+            margin-bottom: 60px;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 40px;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* ===== Tool Cards ===== */
+        .tool-card {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 100px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-number {
+            font-size: 120px;
+            font-weight: 700;
+            color: rgba(99, 102, 241, 0.1);
+            margin-bottom: -30px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .card-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .card-text {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .card-features {
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .feature-text {
+            color: var(--text);
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .card-media {
+            flex: 1;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card-media::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(129, 140, 248, 0.3));
+            z-index: 1;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .tool-card:hover .card-media::before {
+            opacity: 1;
+        }
+
+        .card-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .tool-card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            z-index: 2;
+            box-shadow: var(--glow);
+        }
+
+        /* ===== Category Tabs ===== */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(15, 23, 42, 0.05);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(15, 23, 42, 0.1);
+        }
+
+        /* ===== Glowing Highlight ===== */
+        .glowing-highlight {
+            position: relative;
+            padding: 80px 0;
+            margin: 100px 0;
+            overflow: hidden;
+        }
+
+        .glowing-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(129, 140, 248, 0.1));
+            z-index: -1;
+            border-radius: 20px;
+        }
+
+        .glowing-highlight::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%);
+            z-index: -2;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.2;
+            }
+        }
+
+        .highlight-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        .highlight-title span {
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .highlight-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .highlight-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .highlight-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .highlight-card p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        /* ===== Conclusion ===== */
+        .conclusion {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .conclusion::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 50px;
+            background: var(--accent);
+        }
+
+        .conclusion h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .conclusion p {
+            color: var(--text-light);
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .signature {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            color: var(--primary);
+            margin-top: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .signature::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--primary);
+            color: #aaa;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-light);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        /* ===== Responsive Styles ===== */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 60px;
+            }
+            
+            .tool-card {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 50px;
+            }
+            
+            .article-content {
+                padding: 60px;
+            }
+            
+            .tool-card {
+                flex-direction: column !important;
+                gap: 30px;
+            }
+            
+            .card-media {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .article-content {
+                padding: 40px 30px;
+                margin-top: -50px;
+            }
+            
+            .intro-text {
+                padding-left: 20px;
+                font-size: 18px;
+            }
+            
+            .card-title {
+                font-size: 30px;
+            }
+            
+            .highlight-title {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .card-number {
+                font-size: 80px;
+                margin-bottom: -20px;
+            }
+            
+            .highlight-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .conclusion h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-grid"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Developer Tools<span>Guide</span></a>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <video autoplay muted loop class="hero-bg">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-developer-looking-at-code-while-sitting-on-a-chair-2048-large.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="hero-content">
+                <h1 id="hero-title">Essential Tools for Modern Developers</h1>
+                <p id="hero-subtitle">The must-have toolkit that will supercharge your development workflow in 2024 and beyond.</p>
+                <div class="meta-info" id="meta-info">
+                    <div class="meta-item">
+                        <i class="far fa-user"></i> By Ishan Maitra
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-calendar"></i> April 28, 2024
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i> 10 min read
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-down" id="scroll-down">
+            <div class="mouse"></div>
+            Scroll to Explore
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <div class="container">
+        <article class="article-content">
+            <p class="intro-text">
+                In the fast-evolving world of software development, having the right tools can make the difference between frustration and flow. This curated list represents the essential toolkit that every modern developer should consider integrating into their workflow to boost productivity, collaboration, and code quality.
+            </p>
+
+            <!-- Category Tabs -->
+            <div class="category-tabs" id="categoryTabs">
+                <button class="tab-btn active" data-category="all">All Tools</button>
+                <button class="tab-btn" data-category="code">Code Editors</button>
+                <button class="tab-btn" data-category="collab">Collaboration</button>
+                <button class="tab-btn" data-category="productivity">Productivity</button>
+                <button class="tab-btn" data-category="design">Design</button>
+            </div>
+
+            <!-- Tool 1 -->
+            <div class="tool-card" data-category="code">
+                <div class="card-content">
+                    <div class="card-number">01</div>
+                    <h2 class="card-title">Visual Studio Code</h2>
+                    <p class="card-text">
+                        The undisputed king of code editors, VS Code combines speed, flexibility, and an unparalleled extension ecosystem. Its IntelliSense, debugging capabilities, and built-in Git support make it indispensable for modern developers.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Lightning fast with minimal resource usage</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Thousands of extensions for every language and framework</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Integrated terminal and debugger</p>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://code.visualstudio.com/" target="_blank" class="btn btn-primary">Official Site</a>
+                        <a href="https://marketplace.visualstudio.com/VSCode" target="_blank" class="btn btn-outline">Extensions</a>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Must Have</span>
+                    <img src="data:image/jpeg;base64,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" alt="Visual Studio Code" class="card-img">
+                </div>
+            </div>
+
+            <!-- Tool 2 -->
+            <div class="tool-card" data-category="collab">
+                <div class="card-content">
+                    <div class="card-number">02</div>
+                    <h2 class="card-title">GitHub Copilot</h2>
+                    <p class="card-text">
+                        This AI pair programmer has revolutionized how developers write code. By understanding your coding patterns and context, Copilot suggests entire lines or blocks of code, dramatically speeding up development.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Context-aware code suggestions</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Supports dozens of programming languages</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Learns from your coding style</p>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://github.com/features/copilot" target="_blank" class="btn btn-primary">Get Copilot</a>
+                        <a href="https://docs.github.com/en/copilot" target="_blank" class="btn btn-outline">Documentation</a>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">AI Power</span>
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1985&q=80" alt="GitHub Copilot" class="card-img">
+                </div>
+            </div>
+
+            <!-- Tool 3 -->
+            <div class="tool-card" data-category="productivity">
+                <div class="card-content">
+                    <div class="card-number">03</div>
+                    <h2 class="card-title">Warp Terminal</h2>
+                    <p class="card-text">
+                        Warp is reimagining what a terminal can be with modern UI, AI command search, and collaborative features. It's like giving your terminal superpowers while maintaining the speed you expect.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">AI command search and suggestions</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Workflows for common command sequences</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Beautiful, customizable interface</p>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://www.warp.dev/" target="_blank" class="btn btn-primary">Download</a>
+                        <a href="https://docs.warp.dev/" target="_blank" class="btn btn-outline">Docs</a>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Game Changer</span>
+                    <img src="https://www.warp.dev/static/image/r/w=3840,q=50,format=auto/modern_editing_2x_2d592d17f0.png" alt="Warp Terminal" class="card-img">
+                </div>
+            </div>
+
+            <!-- Glowing Highlight Section -->
+            <div class="glowing-highlight">
+                <h2 class="highlight-title"><span>Key Categories</span></h2>
+                <div class="highlight-grid">
+                    <div class="highlight-card" data-category="code">
+                        <div class="highlight-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Code Editors</h3>
+                        <p>The foundation of every developer's workflow. Modern editors go beyond syntax highlighting with AI assistance, debugging, and seamless integrations.</p>
+                    </div>
+                    <div class="highlight-card" data-category="collab">
+                        <div class="highlight-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Collaboration</h3>
+                        <p>Tools that bridge the gap between team members, enabling real-time collaboration, code reviews, and knowledge sharing.</p>
+                    </div>
+                    <div class="highlight-card" data-category="productivity">
+                        <div class="highlight-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Productivity</h3>
+                        <p>Accelerate your workflow with tools that automate repetitive tasks, suggest improvements, and help you focus.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 4 -->
+            <div class="tool-card" data-category="design">
+                <div class="card-content">
+                    <div class="card-number">04</div>
+                    <h2 class="card-title">Figma</h2>
+                    <p class="card-text">
+                        The collaborative interface design tool that's become essential even for developers. Figma bridges the gap between designers and developers with its developer handoff features and design system management.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Real-time collaboration with designers</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Automatic code generation for styles</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Version history and design system management</p>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://www.figma.com/" target="_blank" class="btn btn-primary">Try Figma</a>
+                        <a href="https://www.figma.com/developers/" target="_blank" class="btn btn-outline">Dev Resources</a>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Design</span>
+                    <img src="data:image/png;base64,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" alt="Figma" class="card-img">
+                </div>
+            </div>
+
+            <!-- Tool 5 -->
+            <div class="tool-card" data-category="productivity">
+                <div class="card-content">
+                    <div class="card-number">05</div>
+                    <h2 class="card-title">Raycast</h2>
+                    <p class="card-text">
+                        This launcher supercharges your productivity by putting all your tools in one place. With extensions for development tasks, it replaces dozens of separate apps with a lightning-fast interface.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Instant access to tools and workflows</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Scriptable with JavaScript or TypeScript</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <p class="feature-text">Window management and clipboard history</p>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://www.raycast.com/" target="_blank" class="btn btn-primary">Download</a>
+                        <a href="https://developers.raycast.com/" target="_blank" class="btn btn-outline">Build Extensions</a>
+                    </div>
+                </div>
+                <div class="card-media">
+                    <span class="card-badge">Productivity</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoxs18DN2WhmgUggEnnfF59u1_a5iR14HqXw&s" alt="Raycast" class="card-img">
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="conclusion">
+                <h2>Building Your Perfect Workflow</h2>
+                <p>
+                    The right tools can transform your development experience from frustrating to joyful. While this list covers essentials, every developer's perfect toolkit is personal. Experiment with these tools, customize them to your workflow, and watch your productivity soar.
+                </p>
+                <p>
+                    What tools can't you live without? I'm always exploring new ways to optimize the development workflow - share your favorites with me!
+                </p>
+                <div class="signature">Ishan Maitra</div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Dev Portfolio</h3>
+                    <p>Showcasing innovative development work and sharing insights about modern web technologies and workflows.</p>
+                    <div class="social-links">
+                       <a href="https://www.facebook.com/share/16joNT6A33/"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/ishan-maitra-574123356?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://instagram.com/ishan.maitra"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/maitrawebtech"><i class="fab fa-github"></i></a>
+                <a href="https://x.com/maitra_ishan" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html">About</a></li>
+                        <li><a href="index.html">Projects</a></li>
+                        <li><a href="blog.html">Articles</a></li>
+                        <li><a href="index.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p>ishanmaitra20122gmail.com</p>
+                    <p>+91 9674026774</p>
+                    <p>145 Baghajatin Road, Pujali, Daspara<br>Budge Budge, Kolkata - 700138, West Bengal</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ishan Maitra. All rights reserved. | To Design is To Empire.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hero animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate hero elements
+            setTimeout(() => {
+                document.getElementById('hero-title').style.opacity = '1';
+                document.getElementById('hero-title').style.transform = 'translateY(0)';
+            }, 300);
+            
+            setTimeout(() => {
+                document.getElementById('hero-subtitle').style.opacity = '1';
+                document.getElementById('hero-subtitle').style.transform = 'translateY(0)';
+            }, 600);
+            
+            setTimeout(() => {
+                document.getElementById('meta-info').style.opacity = '1';
+                document.getElementById('meta-info').style.transform = 'translateY(0)';
+            }, 900);
+            
+            setTimeout(() => {
+                document.getElementById('scroll-down').style.opacity = '1';
+            }, 1500);
+            
+            // Scroll to content
+            document.getElementById('scroll-down').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: document.querySelector('.article-content').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Add glow effect when visible
+                        if (entry.target.classList.contains('highlight-card')) {
+                            entry.target.style.boxShadow = '0 10px 30px rgba(99, 102, 241, 0.2)';
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.tool-card, .highlight-card').forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Category filter
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const toolCards = document.querySelectorAll('.tool-card');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active tab
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter cards
+                    const category = this.dataset.category;
+                    toolCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Smooth scroll to first visible card
+                    const firstVisible = document.querySelector('.tool-card[style="display: flex;"]');
+                    if (firstVisible) {
+                        window.scrollTo({
+                            top: firstVisible.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Floating particles effect
+            const floatingShapes = document.querySelector('.floating-shapes');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 6 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 20 + 10;
+                const opacity = Math.random() * 0.2 + 0.05;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = opacity;
+                particle.style.backgroundColor = `rgba(99, 102, 241, ${opacity})`;
+                particle.style.borderRadius = '50%';
+                particle.style.position = 'absolute';
+                particle.style.animation = 'float 15s infinite ease-in-out';
+                
+                floatingShapes.appendChild(particle);
+            }
+            
+            // Card hover effects
+            const cards = document.querySelectorAll('.tool-card, .highlight-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    this.style.setProperty('--mouse-x', x + 'px');
+                    this.style.setProperty('--mouse-y', y + 'px');
+                    
+                    // Add subtle glow
+                    if (this.classList.contains('tool-card')) {
+                        const glow = document.createElement('div');
+                        glow.classList.add('hover-glow');
+                        glow.style.position = 'absolute';
+                        glow.style.width = '200px';
+                        glow.style.height = '200px';
+                        glow.style.background = 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%)';
+                        glow.style.top = `${y - 100}px`;
+                        glow.style.left = `${x - 100}px`;
+                        glow.style.pointerEvents = 'none';
+                        this.appendChild(glow);
+                        
+                        // Remove after animation
+                        setTimeout(() => {
+                            if (this.contains(glow)) {
+                                this.removeChild(glow);
+                            }
+                        }, 500);
+                    }
+                });
+            });
+        });
+
+        // Typewriter effect for hero title (optional)
+        const heroTitle = document.getElementById('hero-title');
+        const titleText = "Essential Tools for Modern Developers";
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < titleText.length) {
+                heroTitle.innerHTML = titleText.substring(0, i+1) + '<span class="blinking-cursor">|</span>';
+                i++;
+                setTimeout(typeWriter, 50);
+            } else {
+                heroTitle.innerHTML = titleText;
+            }
+        }
+        
+        // Uncomment to enable typewriter effect
+        // typeWriter();
+    </script>
+</body>
+</html>
