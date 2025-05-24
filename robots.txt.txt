@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location (add correct path once live)
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://ishanmaitra.github.io/ishanmaitra/sitemap.xml
